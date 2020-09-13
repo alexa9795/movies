@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-16">
+                <div class="card bg-light mb-3 mt-3">
+                    <div class="card-body">
+                        <div class="card-header">List of movies</div>
+                            <table class="table">
+                                <tr>
+                                    <th>Headline</th>
+                                    <th>Directors</th>
+                                    <th>Cast</th>
+                                    <th>Year</th>
+                                    <th>Cert</th>
+                                    <th>ReviewAuthor</th>
+                                    <th>Rating</th>
+                                    <th></th>
+                                </tr>
+                                {% for movie in movies %}
+                                    <tr>
+                                        <td>{{ movie.headline }}</td>
+                                        <td>
+                                            {% for director in movie.directors %}
+                                                {{ director }}
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            <ul>
+                                                {% for actor in movie.cast %}
+                                                   <li> {{ actor }} </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </td>
+                                        <td>{{ movie.year }}</td>
+                                        <td>{{ movie.cert }}</td>
+                                        <td>{{ movie.duration/60 }} min</td>
+                                        <td>
+                                            {% if movie.genres == null %}
+                                                N/a
+                                            {% else %}
+                                                <ul>
+                                                    {% for genre in movie.genres %}
+                                                        <li>{{ genre }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ movie.reviewAuthor ?: 'N/a' }}</td>
+                                        <td>{{ movie.rating }}</td>
+                                        <td><a href="{{ path('show', { 'id': movie.id }) }}" class="btn btn-info"> More info</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

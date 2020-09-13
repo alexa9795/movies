@@ -1,0 +1,287 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card bg-light mb-3 mt-3">
+                    <div class="card-body">
+                        <div class="card-header" align="center"><b>Movie details - <i>{{ movie.headline }}</i></b></div>
+                            <ul>
+                                <div>
+                                    <li><p><b>Description</b></p></li>
+                                    <p>{{ movie.body }}</p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Class</b></p></li>
+                                    <p>{{ movie.class }}</p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Directors</b></p></li>
+                                    <p>
+                                        <ul style="list-style-type:square;">
+                                            {% for director in movie.directors %}
+                                                <li> {{ director }} </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Cast</b></p></li>
+                                    <p>
+                                        <ul style="list-style-type:square;">
+                                            {% for actor in movie.cast %}
+                                                <li> {{ actor }} </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Genres</b></p></li>
+                                    <p>
+                                        <ul style="list-style-type:square;">
+                                            {% for genre in movie.genres %}
+                                                <li> {{ genre }} </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Cert</b></p></li>
+                                    <p>{{ movie.cert }}</p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Duration</b></p></li>
+                                    <p>{{ movie.duration/60 }} minutes</p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Year</b></p></li>
+                                    <p>{{ movie.year }}</p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Url</b></p></li>
+                                    <p><a href="{{ movie.url }}">Movie url</a></p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Review author</b></p></li>
+                                    <p>{{ movie.reviewAuthor ?: 'Not specified' }}</p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Rating</b></p></li>
+                                    <p>{{ movie.rating ?: 'Not specified' }}</p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Quote</b></p></li>
+                                    <p>{{ movie.quote ?: 'Not specified' }}</p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Sum</b></p></li>
+                                    <p>{{ movie.sum }}</p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Synopsis</b></p></li>
+                                    <p>{{ movie.synopsis }}</p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Card images</b></p></li>
+                                    <p>
+                                        {% if movie.cardImages is empty %}
+                                            <i>Not specified</i>
+                                        {% else %}
+                                            <ul>
+                                                {% for cardImage in movie.cardImages %}
+                                                    <li>
+                                                        <img src="{{ cardImage.url}}"
+                                                             alt="Image not found"
+                                                             width="{{ cardImage.width }}"
+                                                             height="{{ cardImage.height }}"
+                                                        />
+                                                    </li>
+                                                    <br/>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Key art images</b></p></li>
+                                    <p>
+                                        {% if movie.keyArtImages is empty %}
+                                        <i>Not specified</i>
+                                        {% else %}
+                                    <ul>
+                                        {% for keyArtImage in movie.keyArtImages %}
+                                            <li>
+                                                <img src="{{ keyArtImage.url}}"
+                                                     alt="Image not found"
+                                                     width="{{ keyArtImage.width }}"
+                                                     height="{{ keyArtImage.height }}"
+                                                />
+                                            </li>
+                                            <br/>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Galleries</b></p></li>
+                                    <p>
+                                        {% if movie.galleries is empty %}
+                                            <i>Not specified</i>
+                                        {% else %}
+                                            <ul>
+                                                {% for gallery in movie.galleries %}
+                                                    <li>Title: {{ gallery.title ?: 'Not specified' }}</li>
+                                                    <br/>
+                                                    <li>Thumbnail url: <br/>
+                                                        {% if gallery.thumbnailUrl is empty %}
+                                                            <i>Not specified</i>
+                                                        {% else %}
+                                                            <img src="{{ gallery.thumbnailUrl }}" alt="Image not found"/>
+                                                        {% endif %}
+                                                    </li>
+                                                    <br/>
+                                                    <li>Image <br/>
+                                                        <img src="{{ gallery.url }}" alt="Image not found"/></li>
+                                                    <br/>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Videos</b></p></li>
+                                    <p>
+                                        {% if movie.videos is empty %}
+                                            <i>Not specified</i>
+                                        {% else %}
+                                            <ul style="list-style-type:square;">
+                                                {% for video in movie.videos %}
+                                                    <li>Title: {{ video.title ?: 'Not specified' }}</li>
+                                                    <br/>
+                                                    <li>Type: {{ video.type ?: 'Not specified' }}</li>
+                                                    <br/>
+                                                    <li>Thumbnail url: {{ video.thumbnailUrl ?: 'Not specified' }}</li>
+                                                    <br/>
+                                                    <li>
+                                                        <video width="320" height="240" autoplay="autoplay" controls>
+                                                            <source src="{{ video.url}}" >
+                                                        </video>
+                                                    </li>
+                                                    <br/>
+                                                    <li>
+                                                        {% if video.videoAlternatives is not empty %}
+                                                            <ol>
+                                                                Video Alternatives
+                                                                <br/>
+                                                                {% for alternative in video.videoAlternatives %}
+                                                                    <li>
+                                                                        <video width="320" height="240" controls>
+                                                                            <source src="{{ alternative.url}}" type="video/mp4">
+                                                                        </video>
+                                                                    </li>
+                                                                    <br/>
+                                                                {% endfor %}
+                                                            </ol>
+                                                        {% endif %}
+                                                    </li>
+                                                    --------------------------------------------------------
+                                                    <br/>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Sky go id</b></p></li>
+                                    <p>
+                                        {% if movie.skyGoId is empty %}
+                                            <i>Not specified</i>
+                                        {% else %}
+                                            {{ movie.skyGoId }}
+                                        {% endif %}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Sky go url</b></p></li>
+                                    <p>
+                                        {% if movie.skyGoUrl is empty %}
+                                            <i>Not specified</i>
+                                        {% else %}
+                                            <a href="{{ movie.skyGoUrl }}">Sky go url</a>
+                                        {% endif %}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Sg id</b></p></li>
+                                    <p>
+                                        {% if movie.sgId is empty %}
+                                            <i>Not specified</i>
+                                        {% else %}
+                                            {{ movie.sgId }}
+                                        {% endif %}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Sg url</b></p></li>
+                                    <p>
+                                        {% if movie.sgUrl is empty %}
+                                            <i>Not specified</i>
+                                        {% else %}
+                                            <a href="{{ movie.sgId }}">Sg url</a>
+                                        {% endif %}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <li><p><b>Viewing window</b></p></li>
+                                    <p>
+                                        {% if movie.viewingWindow is empty %}
+                                            <i>Not specified</i>
+                                        {% else %}
+                                            <ul>
+                                                    <li>Title: {{ movie.viewingWindow.title ?: 'Not specified' }}</li>
+                                                    <br/>
+                                                    <li>Start date: {{ movie.viewingWindow.startDate ?: 'Not specified' }}</li>
+                                                    <br/>
+                                                    <li>End date: {{ movie.viewingWindow.endDate ?: 'Not specified' }}</li>
+                                                    <br/>
+                                                    <li>Way to watch: {{ movie.viewingWindow.wayToWatch ?: 'Not specified' }}</li>
+                                            </ul>
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                <div>
+                                    <li><p><b>Last updated</b></p></li>
+                                    <p>{{ movie.lastUpdated ?: 'Not specified'}}</p>
+                                </div>
+                            </ul>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

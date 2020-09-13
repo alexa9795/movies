@@ -1,0 +1,11 @@
+index:
+    path: /
+    controller: App\Controller\MovieController::index
+
+list:
+    path: /list
+    controller: App\Controller\MovieController::list
+
+show:
+    path: /list/{id}
+    controller: App\Controller\MovieController::showMovieDetails
